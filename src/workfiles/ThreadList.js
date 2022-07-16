@@ -32,7 +32,11 @@ export function ThreadList(){
 
   return(
     <div>
-      <h1>スレッド一覧</h1>
+      <h1>スレッド一覧</h1><br />
+      <div>
+        <button type="button" onClick={decrement}>前の10件</button>
+        <button type="button" onClick={increment}>次の10件</button>
+      </div>
       <div>
         {listUp}
       </div>
