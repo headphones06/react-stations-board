@@ -10,7 +10,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<ThreadList />} />
-        <Route path="/thread/new" component={<Makethread />} />
+        <Route path="/thread/new" element={<Makethread />} />
       </Routes>
     </Router>
   );
