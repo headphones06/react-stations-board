@@ -1,0 +1,13 @@
+.container{
+ margin: 25px;
+ border: solid;
+ border-color: black;
+}
+
+.title{
+  margin: 5px;
+}
+
+.id{
+  margin: 5px;
+}
