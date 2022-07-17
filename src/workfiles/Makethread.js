@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Header} from 'workfiles/Header.js';
 import 'workfiles/Makethread.css';
+import { Link } from "react-router-dom";
 
 export function Makethread(){
 
@@ -19,7 +19,8 @@ export function Makethread(){
   }
 
   return(
-    <div className='make'>
+    <div>
+      <h1>スレッド一覧</h1><br />
       <form id="form">
         <p>
           <label>

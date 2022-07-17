@@ -1,15 +1,18 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import {Header} from 'workfiles/Header.js';
 import {ThreadList} from 'workfiles/ThreadList.js'
-import {Makethread} from "workfiles/Makethread.js";
+import {Makethread} from "workfiles/Makethread.js"
 
 function App() {
   return (
-    <div>
+    <Router>
       <Header />
-      <ThreadList />
-      <Makethread />
-    </div>
+      <Routes>
+        <Route path="/" element={<ThreadList />} />
+        <Route path="/thread/new" component={<Makethread />} />
+      </Routes>
+    </Router>
   );
 }
 export default App;

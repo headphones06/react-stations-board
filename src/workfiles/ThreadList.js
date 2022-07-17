@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import 'workfiles/ThreadList.css';
+import { Link } from "react-router-dom";
 
 export function ThreadList(){
   const [selectThread, setSelectThread] = useState("");
@@ -34,20 +35,24 @@ export function ThreadList(){
     )
   })
 
+  function buttonset(){
+    return(
+      <div className = "btnset">
+        <button type="button" onClick={decrement} disabled={isloading || count <= 0}>前の10件</button>
+        <button type="button" onClick={increment} disabled={isloading || isend} >次の10件</button>
+      </div>
+    )
+  }
+
   return(
     <div>
       <h1>スレッド一覧</h1><br />
-      <div>
-        <button type="button" onClick={decrement} disabled={isloading || count <= 0}>前の10件</button>
-        <button type="button" onClick={increment} disabled={isloading || isend} >次の10件</button>
-      </div>
+      {buttonset()}
       <div>
         {listUp}
       </div>
-      <div>
-        <button type="button" onClick={decrement} disabled={isloading || count <= 0}>前の10件</button>
-        <button type="button" onClick={increment} disabled={isloading || isend} >次の10件</button>
-      </div>
+      {buttonset()}
+      <button className = "newbtn"><Link to="/thread/new" >新規スレッド作成</Link></button>
     </div>
   )
 }
