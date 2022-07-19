@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import {Header} from 'workfiles/Header.js';
-import {ThreadList} from 'workfiles/ThreadList.js'
-import {Makethread} from "workfiles/Makethread.js"
-import { PostList } from 'workfiles/PostList.js';
+import {ThreadList} from 'workfiles/ThreadList/ThreadList.js'
+import {Makethread} from "workfiles/Makethread/Makethread.js"
+import { PostList } from 'workfiles/Postlist/PostList.js';
 
 function App() {
   return (

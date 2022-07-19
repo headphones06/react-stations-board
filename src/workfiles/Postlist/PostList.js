@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Movelist } from 'workfiles/Movelist';
+import "workfiles/Postlist/Postlist.css"
 
 export function PostList(props){
   const [postList, setPostList] = useState([]);
@@ -8,8 +10,6 @@ export function PostList(props){
   const [isend, setisend] = useState(false);
 
   const loc = useLocation();
-  const increment = () => setCount((prevValue) => prevValue + 10);
-  const decrement = () => setCount((prevValue) => prevValue - 10);
 
   useEffect(() => {
     if(count < 0){
@@ -20,7 +20,7 @@ export function PostList(props){
       .then(res => res.json())
       .then(data => {
         setPostList(data)
-        setisend(data.length != 10) //条件式を書いてもtrue判断可能
+        setisend(data.length != 10)
         console.log(data)
       }).finally(() => setisloading(false))
     }
@@ -35,23 +35,14 @@ export function PostList(props){
     )
   })
 
-  function buttonset(){
-    return(
-      <div className = "btnset">
-        <button type="button" onClick={decrement} disabled={isloading || count <= 0}>前の10件</button>
-        <button type="button" onClick={increment} disabled={isloading || isend} >次の10件</button>
-      </div>
-    )
-  }
-
   return(
     <div>
-      <h1>スレッド内の投稿</h1><br />
-      {buttonset()}
+      <h1>スレッド内の投稿</h1>
+      <Movelist isloading={isloading} isend={isend} count={count} setCount={setCount} />
       <div>
         {listUp}
       </div>
-      {buttonset()}
+      <Movelist isloading={isloading} isend={isend} count={count} setCount={setCount} />
       <br />
       <button className = "underbtn"><Link to="" >新規投稿</Link></button>
       <br />
