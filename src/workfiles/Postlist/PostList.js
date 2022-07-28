@@ -10,18 +10,19 @@ export function PostList(props){
   const [isend, setisend] = useState(false);
 
   const loc = useLocation();
+  const state = loc.state.const;
 
   useEffect(() => {
     if(count < 0){
       setCount(0);
     }else{
       setisloading(true)
-      fetch("https://railway-react-bulletin-board.herokuapp.com/threads/" + loc.threadid + "/posts?offset=" + count)
+      fetch("https://railway-react-bulletin-board.herokuapp.com/threads/" + state.id + "/posts?offset=" + count)
       .then(res => res.json())
       .then(data => {
-        setPostList(data)
+        setPostList(data.posts)
         setisend(data.length != 10)
-        console.log(data)
+        console.log(data.posts)
       }).finally(() => setisloading(false))
     }
   }, [count])
@@ -29,22 +30,21 @@ export function PostList(props){
   const listUp = postList.map((content) => {
     return(
       <div className="container">
-        <p className = "id">{content.posts.id}</p>
-        <h2 className = "post">{content.posts.post}</h2>
+        <p className = "id">{content.id}</p>
+        <h2 className = "post">{content.post}</h2>
       </div>
     )
   })
 
   return(
     <div>
-      <h1>スレッド内の投稿</h1>
+      <h1>投稿内容</h1>
+      <button className = "underbtn"><Link to="" >新規投稿</Link></button>
       <Movelist isloading={isloading} isend={isend} count={count} setCount={setCount} />
       <div>
         {listUp}
       </div>
       <Movelist isloading={isloading} isend={isend} count={count} setCount={setCount} />
-      <br />
-      <button className = "underbtn"><Link to="" >新規投稿</Link></button>
       <br />
       <button className = "underbtn"><Link to="/" >一覧に戻る</Link></button>
     </div>
