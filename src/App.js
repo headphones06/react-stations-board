@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import {Header} from 'workfiles/Header.js';
-import {ThreadList} from 'workfiles/ThreadList.js'
-import {Makethread} from "workfiles/Makethread.js"
-import { PostList } from 'workfiles/PostList.js';
+import {ThreadList} from 'workfiles/ThreadList/ThreadList.js'
+import {Makethread} from "workfiles/Makethread/Makethread.js"
+import { PostList } from 'workfiles/Postlist/PostList.js';
+import { Makepost } from 'workfiles/Makepost/Makepost.js';
 
 function App() {
   return (
@@ -12,8 +13,8 @@ function App() {
       <Routes>
         <Route path="/" element={<ThreadList />} />
         <Route path="/thread/new" element={<Makethread />} />
-        <Route path="/post" element={<PostList />} />
-        
+        <Route path="/thread/:id" element={<PostList />} />
+        <Route path="/thread/:id/new" element={<Makepost />} />
       </Routes>
     </Router>
   );

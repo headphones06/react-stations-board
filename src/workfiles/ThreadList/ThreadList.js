@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import 'workfiles/ThreadList.css';
+import 'workfiles/ThreadList/ThreadList.css';
 import { Link } from "react-router-dom";
+import { Movelist } from 'workfiles/Movelist';
 
 export function ThreadList(){
   const [threadList, setThreadList] = useState([]);
   const [count, setCount] = useState(0);
   const [isloading, setisloading] = useState(false);
   const [isend, setisend] = useState(false);
-  const increment = () => setCount((prevValue) => prevValue + 10);
-  const decrement = () => setCount((prevValue) => prevValue - 10);
 
   useEffect(() => {
     if(count < 0){
@@ -28,30 +27,21 @@ export function ThreadList(){
   const listUp = threadList.map((thre) => {
     return(
       <div className="container">
-        <h2 className = "title">{thre.title}</h2>
+        <h2 className = "title"><Link to={"/thread/" + thre.id} state={{ const: thre }}>{thre.title}</Link></h2>
         <p className = "id">{thre.id}</p>
       </div>
     )
   })
 
-  function buttonset(){
-    return(
-      <div className = "btnset">
-        <button type="button" onClick={decrement} disabled={isloading || count <= 0}>前の10件</button>
-        <button type="button" onClick={increment} disabled={isloading || isend} >次の10件</button>
-      </div>
-    )
-  }
-
   return(
     <div>
-      <h1>スレッド一覧</h1><br />
+      <h1>スレッド一覧</h1>
       <button className = "newbtn"><Link to="/thread/new" >新規スレッド作成</Link></button>
-      {buttonset()}
+      <Movelist isloading={isloading} isend={isend} count={count} setCount={setCount} />
       <div>
         {listUp}
       </div>
-      {buttonset()}
+      <Movelist isloading={isloading} isend={isend} count={count} setCount={setCount} />
     </div>
   )
 }
