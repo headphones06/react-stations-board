@@ -27,7 +27,7 @@ export function ThreadList(){
   const listUp = threadList.map((thre) => {
     return(
       <div className="container">
-        <h2 className = "title"><Link to="/post" state={{ const: thre }}>{thre.title}</Link></h2>
+        <h2 className = "title"><Link to={"/thread/" + thre.id} state={{ const: thre }}>{thre.title}</Link></h2>
         <p className = "id">{thre.id}</p>
       </div>
     )

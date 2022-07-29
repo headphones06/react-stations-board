@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Movelist } from 'workfiles/Movelist';
 import "workfiles/Postlist/Postlist.css"
+import { ThreadList } from 'workfiles/ThreadList/ThreadList';
 
 export function PostList(props){
   const [postList, setPostList] = useState([]);
@@ -10,18 +11,18 @@ export function PostList(props){
   const [isend, setisend] = useState(false);
 
   const loc = useLocation();
-  const state = loc.state.const;
+  const stt = loc.state.const;
 
   useEffect(() => {
     if(count < 0){
       setCount(0);
     }else{
       setisloading(true)
-      fetch("https://railway-react-bulletin-board.herokuapp.com/threads/" + state.id + "/posts?offset=" + count)
+      fetch("https://railway-react-bulletin-board.herokuapp.com/threads/" + stt.id + "/posts?offset=" + count)
       .then(res => res.json())
       .then(data => {
         setPostList(data.posts)
-        setisend(data.length != 10)
+        setisend(data.posts.length != 10)
         console.log(data.posts)
       }).finally(() => setisloading(false))
     }
@@ -38,8 +39,8 @@ export function PostList(props){
 
   return(
     <div>
-      <h1>投稿内容</h1>
-      <button className = "underbtn"><Link to="" >新規投稿</Link></button>
+      <h1>{stt.title} 投稿内容</h1>
+      <button className = "underbtn"><Link to={"/thread/" + stt.id + "/new"} >新規投稿</Link></button>
       <Movelist isloading={isloading} isend={isend} count={count} setCount={setCount} />
       <div>
         {listUp}
