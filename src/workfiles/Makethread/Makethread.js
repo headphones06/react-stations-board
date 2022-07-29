@@ -6,7 +6,7 @@ export function Makethread(){
   const navigate = useNavigate();
   const formRef = useRef(null);
 
-  const goHome = () => {navigate("/");}
+  //const goHome = () => {navigate("/");}
 
   function clicked(){
     const formData = new FormData(formRef.current)
@@ -18,7 +18,7 @@ export function Makethread(){
     .then((response)=> response.json())
     .then((responseJson) =>{
       console.log(responseJson)
-      goHome();
+      navigate(-1);
     })
   }
 

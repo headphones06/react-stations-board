@@ -1,14 +1,14 @@
 import React, {useRef} from 'react';
 import 'workfiles/Makepost/Makepost.css';
-import { Link, useNavigate, useLocation, useParams} from "react-router-dom";
+import { Link, useNavigate, useParams} from "react-router-dom";
 
 export function Makepost(){
   const navigate = useNavigate();
   const formRef = useRef(null);
 
-  let { id } = useParams();
+  const { id } = useParams();
 
-  const goHome = () => {navigate("/thread/", { state: { const: stt } } );}
+  //const goHome = () => {navigate(-1);}
 
   function clicked(){
     const formData = new FormData(formRef.current)
@@ -16,11 +16,11 @@ export function Makepost(){
       method: 'POST',
       body: formData,
     }
-    fetch("https://railway-react-bulletin-board.herokuapp.com/threads/" + stt.id + "/posts", options)
+    fetch("https://railway-react-bulletin-board.herokuapp.com/threads/" + id + "/posts", options)
     .then((response)=> response.json())
     .then((responseJson) =>{
       console.log(responseJson)
-      goHome();
+      navigate(-1);
     })
   }
 
@@ -41,7 +41,7 @@ export function Makepost(){
         <button className='button' type="button" onClick={clicked}>送信</button>
       </form>
       <br />
-      <button><Link to={"/thread/" + stt.id} state={{ const: stt }}>一覧に戻る</Link></button>
+      <button><Link to={"/thread/" + id } >一覧に戻る</Link></button>
     </div>
   )
 }
