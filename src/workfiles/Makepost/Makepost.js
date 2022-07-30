@@ -12,15 +12,11 @@ export function Makepost(){
 
   function clicked(){
     const formData = new FormData(formRef.current)
-    const options = {
-      method: 'POST',
-      body: formData,
-    }
+    const options = { method: 'POST', body: formData, }
     fetch("https://railway-react-bulletin-board.herokuapp.com/threads/" + id + "/posts", options)
-    .then((response)=> response.json())
-    .then((responseJson) =>{
-      console.log(responseJson)
-      navigate(-1);
+    .then(function(response) {
+      console.log(response.ok);
+      navigate(-1) //本当に「戻る」を推すのと同じになってしまう。
     })
   }
 

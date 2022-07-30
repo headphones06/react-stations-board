@@ -10,15 +10,12 @@ export function Makethread(){
 
   function clicked(){
     const formData = new FormData(formRef.current)
-    const options = {
-      method: 'POST',
-      body: formData,
-    }
+    const options = { method: 'POST', body: formData, }
     fetch("https://railway-react-bulletin-board.herokuapp.com/threads", options)
     .then((response)=> response.json())
     .then((responseJson) =>{
       console.log(responseJson)
-      navigate(-1);
+      navigate(-1)
     })
   }
 
