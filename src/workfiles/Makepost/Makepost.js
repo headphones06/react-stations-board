@@ -1,37 +1,33 @@
 import React, {useRef} from 'react';
 import 'workfiles/Makepost/Makepost.css';
-import { Link, useNavigate, useLocation, useParams} from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
 
-export function Makepost(){
-  const navigate = useNavigate();
+export function Makepost(props){
+  var formElement = document.getElementById('form')
+  //const navigate = useNavigate();
   const formRef = useRef(null);
 
-  let { id } = useParams();
+  const { id } = useParams();
 
-  const goHome = () => {navigate("/thread/", { state: { const: stt } } );}
+  //const goHome = () => {navigate(-1);}
 
   function clicked(){
     const formData = new FormData(formRef.current)
-    const options = {
-      method: 'POST',
-      body: formData,
-    }
-    fetch("https://railway-react-bulletin-board.herokuapp.com/threads/" + stt.id + "/posts", options)
-    .then((response)=> response.json())
-    .then((responseJson) =>{
-      console.log(responseJson)
-      goHome();
+    const options = { method: 'POST', body: formData, }
+
+    formElement.reset();
+    fetch("https://railway-react-bulletin-board.herokuapp.com/threads/" + id + "/posts", options)
+    .then(function(response) {
+      console.log(response.ok);
+      props.setCount(-1);
     })
   }
 
   return(
     <div className='make'>
-      <h1>新規投稿</h1>
-      <p>
-        下のフォームに投稿内容を入力してください。<br />
-        入力後は自動で一覧に戻ります。
-      </p>
-      <form className="form" ref={formRef}>
+      <h1>投稿</h1>
+      <p>フォームに投稿内容を入力してください。</p>
+      <form id="form" className="form" ref={formRef}>
         <p>
           <label>
             内容:<br />
@@ -40,8 +36,6 @@ export function Makepost(){
         </p>
         <button className='button' type="button" onClick={clicked}>送信</button>
       </form>
-      <br />
-      <button><Link to={"/thread/" + stt.id} state={{ const: stt }}>一覧に戻る</Link></button>
     </div>
   )
 }

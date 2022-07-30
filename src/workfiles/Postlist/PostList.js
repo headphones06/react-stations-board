@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useParams} from "react-router-dom";
 import { Movelist } from 'workfiles/Movelist';
+import { Makepost } from 'workfiles/Makepost/Makepost.js';
 import "workfiles/Postlist/Postlist.css"
-import { ThreadList } from 'workfiles/ThreadList/ThreadList';
 
 export function PostList(props){
   const [postList, setPostList] = useState([]);
@@ -10,21 +10,24 @@ export function PostList(props){
   const [isloading, setisloading] = useState(false);
   const [isend, setisend] = useState(false);
 
-  const loc = useLocation();
-  const stt = loc.state.const;
+  const { id } = useParams();
 
   useEffect(() => {
     if(count < 0){
+      console.log("reset count")
       setCount(0);
     }else{
       setisloading(true)
-      fetch("https://railway-react-bulletin-board.herokuapp.com/threads/" + stt.id + "/posts?offset=" + count)
-      .then(res => res.json())
-      .then(data => {
-        setPostList(data.posts)
-        setisend(data.posts.length != 10)
-        console.log(data.posts)
-      }).finally(() => setisloading(false))
+      setTimeout(() => {
+        fetch("https://railway-react-bulletin-board.herokuapp.com/threads/" + id + "/posts?offset=" + count)
+        .then(res => res.json())
+        .then(data => {
+          setPostList(data.posts)
+          setisend(data.posts.length != 10)
+          console.log(data.posts)
+        })
+        .finally(() => setisloading(false))
+      }, 250)
     }
   }, [count])
 
@@ -39,14 +42,14 @@ export function PostList(props){
 
   return(
     <div>
-      <h1>{stt.title} 投稿内容</h1>
-      <button className = "underbtn"><Link to={"/thread/" + stt.id + "/new"} >新規投稿</Link></button>
+      <h1>{id} の投稿内容</h1>
       <Movelist isloading={isloading} isend={isend} count={count} setCount={setCount} />
       <div>
         {listUp}
       </div>
       <Movelist isloading={isloading} isend={isend} count={count} setCount={setCount} />
       <br />
+      <Makepost count={count} setCount={setCount}/>
       <button className = "underbtn"><Link to="/" >一覧に戻る</Link></button>
     </div>
   )
